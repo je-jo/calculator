@@ -1,0 +1,23 @@
+@import url(minireset.css);
+
+* {
+    outline: 1px solid salmon;
+}
+
+.display > * {
+    width: 100%;
+    padding: 1em;
+    background-color: blanchedalmond;
+}
+
+button {
+    padding: 0.5em;
+}
+
+.digits {
+    background-color: aquamarine;
+}
+
+.operators {
+    background-color: brown;
+}
