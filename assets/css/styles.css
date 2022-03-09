@@ -4,7 +4,12 @@
     outline: 1px solid salmon;
 }
 
-.display > * {
+.wrapper--calculator {
+    width: clamp(280px, 90%, 600px);
+    margin: 0 auto;
+}
+
+.wrapper--display > * {
     width: 100%;
     padding: 1em;
     background-color: blanchedalmond;

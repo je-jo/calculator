@@ -15,61 +15,56 @@ function operate(operator, a, b) {
     }
 }
 
+const inputDisplay = document.querySelector(".display__input");
+const resultDisplay = document.querySelector(".display__result");
+let result;
+let myNumber;
 let operator;
-const inputDisplay = document.querySelector(".inputted");
-const resultDisplay = document.querySelector(".result");
-//let firstNumber = "";
-let secondNumber;
-let lengthToSlice;
-inputDisplay.textContent = "";
 
-const buttons = document.querySelectorAll("button");
-buttons.forEach(button => {
-    button.addEventListener("click", function (e) {
-        if (e.currentTarget.textContent.match(/\d/)) {
-            if (!(typeof firstNumber === "number")) {
-                inputDisplay.textContent += e.currentTarget.textContent
-                firstNumber = inputDisplay.textContent;
-            } else {
-                inputDisplay.textContent += e.currentTarget.textContent
-                secondNumber = inputDisplay.textContent.slice(lengthToSlice);
-            }
+function clearAll() {
+    result = 0;
+    myNumber = "";
+    resultDisplay.textContent = result;
+    inputDisplay.textContent = "";
+}
 
-        } else if (e.currentTarget.textContent.match(/\D/)) {
-            operator = e.currentTarget.textContent;
-            firstNumber = Number(firstNumber);
-            lengthToSlice = (firstNumber.toString().length) + 3;
-            inputDisplay.textContent = firstNumber;
-            inputDisplay.textContent += ` ${e.currentTarget.textContent} `;
-            resultDisplay.textContent = operate(operator, firstNumber, Number(secondNumber));
-        }
-    });
+const btnClear = document.querySelector(".clear");
+btnClear.addEventListener("click", clearAll);
+
+
+const digits = document.querySelectorAll(".digit");
+digits.forEach(digit => {
+    digit.addEventListener("click", makeNumber)
 });
 
-// const operators = document.querySelectorAll(".operator");
+const operators = document.querySelectorAll(".operator");
+operators.forEach(operator => {
+    operator.addEventListener("click", calculate)
+});
 
-// operators.forEach(operator => {
-//     operator.addEventListener("click", function (e) {
-//         firstNumber = Number(firstNumber);
-//         inputDisplay.textContent = firstNumber;
-//         inputDisplay.textContent += ` ${e.currentTarget.textContent} `;
-//         if (e.currentTarget.textContent === "+") {
-//             operator = "plus"
-//         } else if (e.currentTarget.textContent === "-") {
-//             operator = "minus"
-//         } else if (e.currentTarget.textContent === "*") {
-//             operator = "times"
-//         } else if (e.currentTarget.textContent === "/") {
-//             operator = "dividedby"
-//         }
-//         console.log(operator)
-//         return operator;
-// });
-// });
+function makeNumber(e) {
+    myNumber = myNumber.concat(e.currentTarget.textContent);
+    inputDisplay.textContent += +e.currentTarget.textContent;
+}
 
-// const equals = document.querySelector(".equals");
+function calculate(e) {
+    if (result === 0) {
+        result = Number(myNumber);
+    } else {
+        result = operate(operator, result, Number(myNumber));
+    }
+    inputDisplay.textContent = ""
+    inputDisplay.textContent += `${result} ${e.currentTarget.textContent} `;
+    resultDisplay.textContent = result;
+    myNumber = "";
+    operator = e.currentTarget.textContent;
+}
 
-// equals.addEventListener("click", operate);
+const equals = document.querySelector(".equals");
+equals.addEventListener("click", function (e) {
+    result = operate(operator, result, Number(myNumber));
+    inputDisplay.textContent += ` ${e.currentTarget.textContent} `;
+    resultDisplay.textContent = result;
+})
 
-
-resultDisplay.textContent = "imaresult";
+clearAll();
