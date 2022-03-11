@@ -20,14 +20,12 @@ function operate(operator, a, b) {
 
 const inputDisplay = document.querySelector(".display__input");
 const resultDisplay = document.querySelector(".display__result");
+let inputValue;
 let result;
 let myNumber;
 let operator;
 
 // clear all
-
-const btnClear = document.querySelector(".clear");
-btnClear.addEventListener("click", clearAll);
 
 function clearAll() {
     result = null;
@@ -36,23 +34,40 @@ function clearAll() {
     inputDisplay.textContent = result;
 }
 
-// get number input and store it
+// get value from clicks or keyboard and run appropriate func
 
-const digits = document.querySelectorAll(".digit");
-digits.forEach(digit => {
-    digit.addEventListener("click", buildString);
+window.addEventListener("keydown", getValue)
+
+const buttons = document.querySelectorAll("button");
+buttons.forEach(btn => {
+    btn.addEventListener("click", getValue);
 });
 
-function buildString(e) {
-    /* console.log(e)
-    console.log(e.type)
-    console.log(e.key) */
-    myNumber = myNumber.toString();
-    if (e.type === "click") {
-        myNumber += e.currentTarget.value;
-    } else {
-        myNumber += e.key
+function getValue(e) {
+    if (e.type === "keydown") {
+        inputValue = e.key;
+        e.preventDefault();
+    } else if (e.type = "click") {
+        inputValue = e.currentTarget.textContent;
     }
+    if (inputValue.match(/\d/)) { //regex for digits
+        buildString();
+    } else if (inputValue.match(/[+\-*/]/) || inputValue === "Enter") {
+        calculate();
+    } else if (inputValue === ".") {
+        addDecimal();
+    } else if (inputValue === "Backspace") {
+        deleteCharacter();
+    } else if (inputValue === "Delete") {
+        clearAll()
+    } else {
+        return
+    }
+}
+
+function buildString() {
+    myNumber = myNumber.toString();
+    myNumber += inputValue
     updateDisplay();
 }
 
@@ -65,11 +80,6 @@ function updateDisplay() {
     resultDisplay.textContent = "=";
 }
 
-// decimal button
-
-const dot = document.querySelector(".decimal");
-dot.addEventListener("click", addDecimal);
-
 function addDecimal() {
     myNumber = myNumber.toString();
     if (myNumber.includes(".")) {
@@ -79,11 +89,6 @@ function addDecimal() {
         inputDisplay.textContent += ".";
     }
 }
-
-// backspace button
-
-const btnBackspace = document.querySelector(".backspace");
-btnBackspace.addEventListener("click", deleteCharacter)
 
 function deleteCharacter() {
     myNumber = myNumber.toString();
@@ -95,50 +100,37 @@ function deleteCharacter() {
     updateDisplay();
 }
 
-// do calculations 
-
-const operators = document.querySelectorAll(".operator");
-operators.forEach(operator => {
-    operator.addEventListener("click", calculate);
-});
-
-function calculate(e) {
-    console.log(operator)
-    if (result === null && myNumber === "") {
+function calculate() {
+    if (result === null && myNumber === "") { //prevent operator before number
         return
     }
     else if (operator && myNumber === "") { //prevents errors when clicking operator btns multiple times
-        operator = e.currentTarget.textContent; //just use the last one clicked
+        operator = inputValue; //just use the last one clicked
         updateDisplay();
+        return
     } else {
         myNumber = parseFloat(myNumber);
         resultDisplay.textContent = myNumber;
+    }
+
+    if (result === null) {
+        result = myNumber; //stores input as first number
+    } else {
+        result = operate(operator, result, myNumber); //when the 1.num is already stored, do calculation with input as 2.num.
+        resultDisplay.textContent = `= ${+result.toFixed(3)}`;
         if (result === Infinity) {  //if divide by zero clear all
             alert(`Nope! Starting over.`);
             clearAll();
-        } else if (result === null) {
-            result = myNumber; //stores input as first number
-        } else {
-            result = operate(operator, result, myNumber); //when the 1.num is already stored, do calculation with input as 2.num.
-            resultDisplay.textContent = `= ${+result.toFixed(3)}`;
-        }
-        myNumber = "";
-        operator = e.currentTarget.textContent; //set operator after calculation, because of chaining.
-        if (operator !== "=") {
-            inputDisplay.textContent += ` ${operator}`;
         }
     }
-
+    myNumber = "";
+    operator = inputValue; //set operator after calculation, because of chaining.
+    if (operator !== "Enter") {
+        inputDisplay.textContent += ` ${operator}`;
+        console.log(`adding op`)
+    }
 }
 
 clearAll();
-
-/*window.addEventListener("keydown", function(e) {
-    if (/\d/.test(e.key)) {
-        buildString()
-    }
-}); */
-
-window.addEventListener("keydown", buildString)
 
 
