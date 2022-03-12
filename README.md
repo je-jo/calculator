@@ -36,6 +36,7 @@ This is a simple calculator that performs basic math operations on a pair of num
 
 - Semantic HTML5 markup
 - CSS custom properties
+- Flexbox
 - CSS Grid
 - Mobile-first workflow
 - Javascript
@@ -54,8 +55,8 @@ As we've been warned, getting useful variables from user input, was the hardest 
 - [x] Display error message on division by zero;
 - [x] Extra credit: Add "." button;
 - [x] Extra credit: Add "backspace" button;
-- [] Extra credit: Make calculator pretty;
-- [] Extra credit: Add keyboard support;
+- [ ] Extra credit: Make calculator pretty;
+- [x] Extra credit: Add keyboard support;
 
 
 ### Useful resources

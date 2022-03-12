@@ -30,8 +30,8 @@ let operator;
 function clearAll() {
     result = null;
     myNumber = "";
-    resultDisplay.textContent = result;
-    inputDisplay.textContent = result;
+    resultDisplay.textContent = 0;
+    inputDisplay.textContent = 0;
 }
 
 // get value from clicks or keyboard and run appropriate func
@@ -46,13 +46,14 @@ buttons.forEach(btn => {
 function getValue(e) {
     if (e.type === "keydown") {
         inputValue = e.key;
-        e.preventDefault();
     } else if (e.type = "click") {
         inputValue = e.currentTarget.textContent;
     }
-    if (inputValue.match(/\d/)) { //regex for digits
+    if (isFinite(inputValue)) {  //check if number 
+        console.log(e.key)
         buildString();
     } else if (inputValue.match(/[+\-*/]/) || inputValue === "Enter") {
+        e.preventDefault();
         calculate();
     } else if (inputValue === ".") {
         addDecimal();
@@ -127,7 +128,6 @@ function calculate() {
     operator = inputValue; //set operator after calculation, because of chaining.
     if (operator !== "Enter") {
         inputDisplay.textContent += ` ${operator}`;
-        console.log(`adding op`)
     }
 }
 

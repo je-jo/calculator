@@ -4,26 +4,65 @@
     outline: 1px solid salmon;
 }
 
-.wrapper--calculator {
-    width: clamp(280px, 90%, 600px);
+body {
+    min-height: 100vh;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+}
+
+main {
     margin: 0 auto;
+    display: grid;
+    place-items: center;
 }
 
-.wrapper--display > * {
-    width: 100%;
+.wrapper--calculator {
+    width: min(100%, 600px);
+    height: min(100%, 450px);
+    margin: 0 auto;
+    background-color: lightcoral;
+    padding: 0.5em;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.5em;
+}
+
+.wrapper--display {
+    font-size: 2.5em;
+    grid-column: span 4;
     padding: 1em;
-    background-color: blanchedalmond;
     text-align: right;
+    background-color: azure;
 }
 
+.controls {
+    grid-column: span 4;
+}
 button {
     padding: 0.5em;
+    width: 100%;
 }
 
 .digits {
     background-color: aquamarine;
+    grid-column: span 3;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap-reverse;
+   /* display: grid;
+    grid-template-columns: repeat(3, 1fr); */
+    padding: 2%;
+    gap: 2%;
+}
+
+.digits > * {
+    width: 32%;
 }
 
 .operators {
     background-color: brown;
+}
+
+footer {
+    text-align: center;
 }
