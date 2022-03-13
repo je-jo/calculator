@@ -47,7 +47,7 @@ function getValue(e) {
     if (e.type === "keydown") {
         inputValue = e.key;
     } else if (e.type = "click") {
-        inputValue = e.currentTarget.textContent;
+        inputValue = e.currentTarget.value;
     }
     if (isFinite(inputValue)) {  //check if number 
         console.log(e.key)

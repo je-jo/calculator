@@ -1,10 +1,20 @@
 @import url(minireset.css);
 
+:root {
+    --clr-light: #e7e9db;
+    --clr-white: #f9faf8;
+    --clr-dark: #4f424c;
+    --clr-blue: #5bc4bf;
+    --clr-rosy: #fec418;
+    --clr-red: #ef6155;
+}
+
 body {
     min-height: 100vh;
     display: grid;
     grid-template-rows: auto 1fr auto;
-    background-color: antiquewhite;
+    background-color: var(--clr-light);
+    color: var(--clr-dark);
 }
 
 main {
@@ -20,7 +30,7 @@ main {
     grid-template-rows: auto 1fr;
     gap: 2%;
     padding: 2%;
-    outline: 1px solid brown;
+    outline: 1px solid var(--clr-dark);
 }
 
 .wrapper--display {
@@ -28,35 +38,59 @@ main {
     padding: 0.5em;
     text-align: right;
     border-radius: 0.2em;
-    background-color: aqua;
+    background-color: #fff;
+    overflow: hidden;
 }
 
 .buttons {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 2%;
+    gap: 3%;
+    padding: 3%;
+    background-color: var(--clr-white);
+    border-radius: 0.6em;
+}
+
+.clear, .equals {
+    grid-column: span 2;
 }
 
 .control {
-    grid-column: span 2;
-    background-color: brown;
+    background-color: var(--clr-blue);
 }
 
 .operator {
-    background-color: rosybrown;
+    background-color: var(--clr-rosy);
 }
 
 .equals {
-    background-color: red;
+    background-color: var(--clr-red)
 }
 
 button {
     width: 100%;
     font-size: 1.5em;
     border-radius: 0.5em;
-    background-color: aquamarine;
+    background-color: var(--clr-light);
+    color: inherit;
+    border: none;
+    box-shadow: 0 0.2rem 0.1rem 0 rgba(66, 51, 64, 0.5);
 }
+
+/* button:hover {
+    box-shadow: inset 0 0.2rem 0.1rem 0 rgba(0,0,0,0.2);
+} */
 
 footer {
     text-align: center;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+    font-weight: bold;
+}
+
+a:hover {
+    color: var(--clr-red);
 }
