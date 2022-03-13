@@ -12,7 +12,7 @@ function operate(operator, a, b) {
         case "*":
             return multiply(a, b);
         case "/":
-            return divide(a, b);
+            return b === 0 ? 42 : divide(a, b);
         default:
             return a;
     }
@@ -119,10 +119,10 @@ function calculate() {
     } else {
         result = operate(operator, result, myNumber); //when the 1.num is already stored, do calculation with input as 2.num.
         resultDisplay.textContent = `= ${+result.toFixed(3)}`;
-        if (result === Infinity) {  //if divide by zero clear all
+        /* if (result === Infinity) {  //if divide by zero clear all
             alert(`Nope! Starting over.`);
             clearAll();
-        }
+        } */
     }
     myNumber = "";
     operator = inputValue; //set operator after calculation, because of chaining.
