@@ -12,7 +12,9 @@ function operate(operator, a, b) {
         case "*":
             return multiply(a, b);
         case "/":
-            return b === 0 ? 42 : divide(a, b);
+            return b === 0 ?
+                (alert("This could go on forever... Let's start over!"), clearAll()) :
+                divide(a, b);
         default:
             return a;
     }
@@ -30,8 +32,8 @@ let operator;
 function clearAll() {
     result = null;
     myNumber = "";
-    resultDisplay.textContent = 0;
     inputDisplay.textContent = 0;
+    resultDisplay.textContent = 0;
 }
 
 // get value from clicks or keyboard and run appropriate func
@@ -73,12 +75,21 @@ function buildString() {
 }
 
 function updateDisplay() {
-    if (result && operator) {
-        inputDisplay.textContent = `${result} ${operator} ${myNumber}`;
-    } else {
-        inputDisplay.textContent = parseFloat(myNumber);
+    if (inputValue !== "Enter") {
+        if (inputValue === operator) {
+            inputDisplay.textContent = "";
+            inputDisplay.textContent += `${result} ${operator}`;
+        } else if (result) {
+            inputDisplay.textContent = `${result} ${operator} ${parseFloat(myNumber)}`;
+        } else {
+            inputDisplay.textContent = parseFloat(myNumber);
+        }
     }
-    resultDisplay.textContent = "=";
+    if (result === null) {
+        resultDisplay.textContent = `= `;
+    } else {
+        resultDisplay.textContent = `= ${result}`;
+    }
 }
 
 function addDecimal() {
@@ -111,24 +122,23 @@ function calculate() {
         return
     } else {
         myNumber = parseFloat(myNumber);
-        resultDisplay.textContent = myNumber;
+        updateDisplay();
+        //resultDisplay.textContent = myNumber;
     }
 
     if (result === null) {
-        result = myNumber; //stores input as first number
+        result = parseFloat(myNumber.toPrecision(3)); //stores input as first number
     } else {
-        result = operate(operator, result, myNumber); //when the 1.num is already stored, do calculation with input as 2.num.
-        resultDisplay.textContent = `= ${+result.toFixed(3)}`;
-        /* if (result === Infinity) {  //if divide by zero clear all
-            alert(`Nope! Starting over.`);
-            clearAll();
-        } */
+        result = parseFloat((operate(operator, result, myNumber)).toPrecision(3)); //when the 1.num is already stored, do calculation with input as 2.num.
+        updateDisplay()
+        //resultDisplay.textContent = `= ${result}`;
     }
     myNumber = "";
     operator = inputValue; //set operator after calculation, because of chaining.
-    if (operator !== "Enter") {
+    updateDisplay()
+    /*if (operator !== "Enter") {
         inputDisplay.textContent += ` ${operator}`;
-    }
+    } */
 }
 
 clearAll();
