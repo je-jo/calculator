@@ -13,7 +13,7 @@ function operate(operator, a, b) {
             return multiply(a, b);
         case "/":
             return b === 0 ?
-                (alert("This could go on forever... Let's start over!"), clearAll()) :
+                alert("This could go on forever... Please enter another number.") :
                 divide(a, b);
         default:
             return a;
@@ -32,6 +32,7 @@ let operator;
 function clearAll() {
     result = null;
     myNumber = "";
+    operator = null;
     inputDisplay.textContent = 0;
     resultDisplay.textContent = 0;
 }
@@ -51,8 +52,7 @@ function getValue(e) {
     } else if (e.type = "click") {
         inputValue = e.currentTarget.value;
     }
-    if (isFinite(inputValue)) {  //check if number 
-        console.log(e.key)
+    if (inputValue.match(/^[0-9]$/) && inputValue !== " ") {  //check if single number, exclude single space
         buildString();
     } else if (inputValue.match(/[+\-*/]/) || inputValue === "Enter") {
         e.preventDefault();
@@ -70,7 +70,10 @@ function getValue(e) {
 
 function buildString() {
     myNumber = myNumber.toString();
-    myNumber += inputValue
+    if (operator === "Enter") { //if there is already finished calculation, start over.
+        clearAll();
+    }
+    myNumber += inputValue;
     updateDisplay();
 }
 
@@ -116,31 +119,24 @@ function calculate() {
     if (result === null && myNumber === "") { //prevent operator before number
         return
     }
-    else if (operator && myNumber === "") { //prevents errors when clicking operator btns multiple times
+    else if (operator && myNumber === "") { //prevents errors when clicking operator btns multiple times before second num
         operator = inputValue; //just use the last one clicked
         updateDisplay();
         return
     } else {
         myNumber = parseFloat(myNumber);
         updateDisplay();
-        //resultDisplay.textContent = myNumber;
     }
 
     if (result === null) {
-        result = parseFloat(myNumber.toPrecision(3)); //stores input as first number
+        result = parseFloat(myNumber.toFixed(3)); //stores input as first number
     } else {
-        result = parseFloat((operate(operator, result, myNumber)).toPrecision(3)); //when the 1.num is already stored, do calculation with input as 2.num.
+        result = parseFloat((operate(operator, result, myNumber)).toFixed(3)); //when the 1.num is already stored, do calculation with input as 2.num.
         updateDisplay()
-        //resultDisplay.textContent = `= ${result}`;
     }
     myNumber = "";
     operator = inputValue; //set operator after calculation, because of chaining.
     updateDisplay()
-    /*if (operator !== "Enter") {
-        inputDisplay.textContent += ` ${operator}`;
-    } */
 }
 
 clearAll();
-
-
