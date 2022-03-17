@@ -19,7 +19,7 @@ Simple on-screen calculator using JavaScript, HTML, and CSS. Built for [The Odin
 
 ### Description
 
-This is a simple calculator that performs basic math operations on a pair of numbers.
+This is a simple calculator that performs basic math operations on a pair of numbers, with 3-digit precision.
 
 ### Screenshot
 
@@ -36,7 +36,6 @@ This is a simple calculator that performs basic math operations on a pair of num
 
 - Semantic HTML5 markup
 - CSS custom properties
-- Flexbox
 - CSS Grid
 - Mobile-first workflow
 - Javascript
@@ -63,6 +62,8 @@ As we've been warned, getting useful variables from user input, was the hardest 
 
 - [Minireset](https://awesomeopensource.com/project/jgthms/minireset.css?categoryPage=29) - A tiny modern CSS reset. 
 - [Box Shadows](https://box-shadow.dev/) A fun and useful tool for playing around with box shadows.
+- [Colors from Paraiso theme](https://github.com/idleberg/Paraiso-Color-Palettes)
+- [Frontend Mentor Calculator challenge](https://www.frontendmentor.io/challenges/calculator-app-9lteq5N29) - The calculator's design is heavily inspired by this FEM design.
 
 ## Author
 

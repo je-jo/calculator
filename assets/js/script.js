@@ -107,6 +107,9 @@ function addDecimal() {
 
 function deleteCharacter() {
     myNumber = myNumber.toString();
+    if (operator === "Enter") {
+        clearAll();
+    }
     if (myNumber.length > 1) {
         myNumber = myNumber.slice(0, -1);
     } else {
@@ -132,7 +135,7 @@ function calculate() {
         result = parseFloat(myNumber.toFixed(3)); //stores input as first number
     } else {
         result = parseFloat((operate(operator, result, myNumber)).toFixed(3)); //when the 1.num is already stored, do calculation with input as 2.num.
-        updateDisplay()
+        updateDisplay();
     }
     myNumber = "";
     operator = inputValue; //set operator after calculation, because of chaining.

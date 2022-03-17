@@ -17,10 +17,22 @@
     outline-offset: 3px;
 }
 
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+} 
+
 body {
     min-height: 100vh;
     display: grid;
-    grid-template-rows: auto 1fr auto;
+    grid-template-rows: 1fr auto;
     background-color: var(--clr-lightish);
     color: var(--clr-dark);
 }
@@ -28,26 +40,30 @@ body {
 main {
     display: grid;
     place-items: center;
-}
+} 
 
 .wrapper--calculator {
-    width: min(100%, 600px);
-    height: min(100%, 700px);
-    place-self: center;
     display: grid;
     grid-template-rows: auto 1fr;
-    gap: 2%;
-    padding: 2%;
+    gap: 1em;
+    padding: 1em;
+    width: min(100%, 600px);
+    height: min(100%, 700px);
 }
 
 .wrapper--display {
     font-size: 2rem;
-    padding: 5% 3%;
+    padding: .5em;
     text-align: right;
     border-radius: 0.2em;
     background-color: #fff;
-    overflow: hidden;
     box-shadow: var(--box-shadow);
+    overflow: hidden;
+}
+
+.wrapper--display > * {
+    overflow: hidden;
+    line-height: 1.5;
 }
 
 .display__input {
@@ -58,37 +74,17 @@ main {
     font-size: 2em; 
 }
 
-.buttons {
+.wrapper--buttons {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 1em;
     padding: 1em;
     background-color: var(--clr-white);
-    border-radius: 0.6em;
+    border-radius: 0.3em;
     box-shadow: var(--box-shadow);
 }
 
-.clear, .equals {
-    grid-column: span 2;
-}
-
-.control {
-    background-color: var(--clr-blue);
-    color: var(--clr-white);
-    font-weight: 700;
-}
-
-.operator {
-    background-color: var(--clr-yellow);
-}
-
-.equals {
-    background-color: var(--clr-red);
-    color: var(--clr-white);
-    font-weight: 700;
-}
-
-button {
+.btn {
     font-family: inherit;
     font-size: 2rem;
     width: 100%;
@@ -96,16 +92,31 @@ button {
     background-color: var(--clr-lightish);
     color: inherit;
     border: none;
-    /* font-weight: 700; */
+    font-weight: 700; 
     box-shadow: var(--box-shadow);
 }
 
-button:active {
+.btn:active {
     box-shadow: inset var(--box-shadow);
 } 
 
+.btn--clear, 
+.btn--equals { grid-column: span 2; }
+
+.btn--control { background-color: var(--clr-blue); }
+
+.btn--operator { background-color: var(--clr-yellow); }
+
+.btn--equals { background-color: var(--clr-red); }
+
+.btn--control,
+.btn--equals {
+    color: var(--clr-white);
+    font-weight: 700;
+}
+
 footer {
-    font-size: 0.5rem;
+    font-size: 0.7rem;
     text-align: center;
     padding: 0.5em;
 }
