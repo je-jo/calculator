@@ -96,10 +96,12 @@ function updateDisplay() {
 }
 
 function addDecimal() {
+
     myNumber = myNumber.toString();
     if (myNumber.includes(".")) {
         return
-    } else {
+    }
+    else {
         myNumber += ".";
         inputDisplay.textContent += ".";
     }
@@ -119,6 +121,9 @@ function deleteCharacter() {
 }
 
 function calculate() {
+    if (myNumber === ".") {
+            myNumber = "0."; //prevent calculations with dot, convert to zero
+    }
     if (result === null && myNumber === "") { //prevent operator before number
         return
     }
