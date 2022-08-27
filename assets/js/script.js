@@ -81,17 +81,17 @@ function updateDisplay() {
     if (inputValue !== "Enter") {
         if (inputValue === operator) {
             inputDisplay.textContent = "";
-            inputDisplay.textContent += `${result} ${operator}`;
+            inputDisplay.textContent += `${result.toLocaleString()} ${operator}`;
         } else if (result) {
-            inputDisplay.textContent = `${result} ${operator} ${parseFloat(myNumber)}`;
+            inputDisplay.textContent = `${result.toLocaleString()} ${operator} ${(+myNumber).toLocaleString()}`;
         } else {
-            inputDisplay.textContent = parseFloat(myNumber);
+            inputDisplay.textContent = `${(+myNumber).toLocaleString()}`;
         }
     }
     if (result === null) {
         resultDisplay.textContent = `= `;
     } else {
-        resultDisplay.textContent = `= ${result}`;
+        resultDisplay.textContent = `= ${result.toLocaleString()}`;
     }
 }
 
